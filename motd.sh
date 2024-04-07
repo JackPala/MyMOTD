@@ -13,6 +13,9 @@ ip_address=$(ip addr show $primary_interface | grep "inet\b" | awk '{print $2}' 
 local_date=$(date "+%B %d, %Y")
 local_time=$(date "+%I:%M:%S %p")
 
+# Extracting memory information
+mem_info=$(free -m | awk '/Mem:/ {print $3"MiB / "$2"MiB"}')
+
 # ASCII Art and dynamic content
 echo "                           -----  ..                        "
 echo "                    .==--=+.   .=----=                      "
@@ -31,7 +34,7 @@ echo "          =    ::-++-:                +: :=    :=           "
 echo -e "         .+. .  :.       .    .:-:    .#  .+.   =-          Hostname: ${hostname}"
 echo -e "        -=   -:.               .*:     :+   :=:  :=:        CPU: ${cpu_info} (${cpu_cores}) @ GHz"
 echo -e "       +:  .-::                -#      .#     .=--:-+*+:    Load: ${load}"
-echo "      +:  :::                 .#        =-        .:.       "
+echo -e "      +:  :::                 .#        =-        .:.       Memory: ${mem_info}"
 echo "     -=  .        .        . :+:       .:+=                 "
 echo "    .* :=:   -:-+  =    :==-:.            =-                "
 echo "    .#=.   .+..=+     -*-                  :=               "
@@ -47,4 +50,3 @@ echo "                  -=      :---:                           "
 echo "                  *    :--.                               "
 echo "                 *: .::                                    "
 echo "                 #.:                                      "
-
